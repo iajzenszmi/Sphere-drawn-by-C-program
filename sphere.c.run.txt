@@ -1,0 +1,167 @@
+:
+sphere.c:(.text+0x6f): undefined reference to `sqrt'
+/usr/bin/ld: /tmp/cc1HEvmC.o: in function `draw_sphere':
+sphere.c:(.text+0x1ab): undefined reference to `floor'
+/usr/bin/ld: sphere.c:(.text+0x1f1): undefined reference to `floor'
+/usr/bin/ld: sphere.c:(.text+0x29e): undefined reference to `sqrt'
+/usr/bin/ld: sphere.c:(.text+0x2e1): undefined reference to `pow'
+/usr/bin/ld: sphere.c:(.text+0x381): undefined reference to `ceil'
+/usr/bin/ld: sphere.c:(.text+0x3c0): undefined reference to `ceil'
+collect2: error: ld returned 1 exit status
+ian@ian-HP-Convertible-x360-11-ab1XX:~$ gcc sphere.c -lm -o sphere 
+ian@ian-HP-Convertible-x360-11-ab1XX:~$ ./sphere
+                               eeeeeeeeeeeeeeee&                                 
+                        eooooo****ooooooooooeeeeeeee&&&                          
+                    oo******!!!**********ooooooeeeeeeee&&&&                      
+                 o***!!!!!!!!!!!!!!!!!*****ooooooeeeeeeee&&&&&                   
+              o**!!!::::::::::::::!!!!!!*****ooooooeeeeeeee&&&&&&                
+            o*!!!::::.........:::::::!!!!!*****oooooeeeeeeee&&&&&&&              
+          o*!!:::................:::::!!!!!*****oooooeeeeeeee&&&&&&&&            
+        o*!!:::...................:::::!!!!!****ooooooeeeeeeee&&&&&&&&&          
+       **!!::......................:::::!!!!*****oooooeeeeeeee&&&&&&&&&&         
+     o**!:::.......................:::::!!!!*****oooooeeeeeeeee&&&&&&&&&&&       
+    o**!:::........................:::::!!!!*****oooooeeeeeeeee&&&&&&&&&&&&      
+   o**!!::.........................::::!!!!!*****oooooeeeeeeeee&&&&&&&&&&&&&     
+  eo*!!:::........................:::::!!!!*****ooooooeeeeeeeee&&&&&&&&&&&&&&    
+  o**!!:::.......................:::::!!!!!*****ooooooeeeeeeeee&&&&&&&&&&&&&&    
+ oo*!!!:::......................:::::!!!!!*****ooooooeeeeeeeee&&&&&&&&&&&&&&&&   
+ o**!!!::::...................::::::!!!!!*****ooooooeeeeeeeeee&&&&&&&&&&&&&&&&   
+eo***!!!::::...............:::::::!!!!!!*****oooooooeeeeeeeee&&&&&&&&&&&&&&&&&&  
+eoo**!!!!::::::........:::::::::!!!!!!******oooooooeeeeeeeeee&&&&&&&&&&&&&&&&&&  
+eoo***!!!!:::::::::::::::::::!!!!!!!*******ooooooeeeeeeeeeee&&&&&&&&&&&&&&&&&&&  
+eooo***!!!!!!:::::::::::::!!!!!!!!*******oooooooeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&  
+eooo*****!!!!!!!!!!!!!!!!!!!!!!********ooooooooeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&  
+eeoooo******!!!!!!!!!!!!!!!**********ooooooooeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&  
+eeeooooo**************************oooooooooeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&  
+eeeeoooooo********************oooooooooooeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&  
+ eeeeeoooooooooo********ooooooooooooooeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&   
+ &eeeeeeoooooooooooooooooooooooooooeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&   
+  &eeeeeeeeeooooooooooooooooooeeeeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&    
+  &&eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&    
+   &&&eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&     
+    &&&&eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&      
+     &&&&&&&eeeeeeeeeeeeeeeeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&       
+       &&&&&&&&&&&eeeeeeeee&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&         
+        &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&          
+          &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&            
+            &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&              
+              &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                
+                 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                   
+                    &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                      
+                        &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&                          
+                               &&&&&&&&&&&&&&&&&                                 
+                                                                                 
+             :.....::::!!*               
+         ..............:::!!**           
+      ...................:::!!**o        
+    ......................::!!!***o      
+   .......................:::!!!***o     
+  ........................:::!!!***oo    
+ .........................:::!!!***ooo   
+..........................:::!!!***oooo  
+.........................:::!!!****oooo  
+........................:::!!!*****oooo  
+:.....................::::!!!*****ooooo  
+::..................::::!!!!*****oooooo  
+!:::.............:::::!!!!******ooooooo  
+ !!::::::::::::::::!!!!!******oooooooo   
+  *!!!!::::::::!!!!!!!*******oooooooo    
+   **!!!!!!!!!!!!!********oooooooooo     
+    o*******************ooooooooooo      
+      oo***********oooooooooooooo        
+         ooooooooooooooooooooo           
+             ooooooooooooo               
+                                         
+ian@ian-HP-Convertible-x360-11-ab1XX:~$ cat sphere.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <math.h>
+
+const char *shades = ".:!*oe&#%@";
+
+double light[3] = { 30, 30, -50 };
+void normalize(double * v)
+{
+        double len = sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
+        v[0] /= len; v[1] /= len; v[2] /= len;
+}
+
+double dot(double *x, double *y)
+{
+        double d = x[0]*y[0] + x[1]*y[1] + x[2]*y[2];
+        return d < 0 ? -d : 0;
+}
+
+void draw_sphere(double R, double k, double ambient)
+{
+        int i, j, intensity;
+        double b;
+        double vec[3], x, y;
+        for (i = floor(-R); i <= ceil(R); i++) {
+                x = i + .5;
+                for (j = floor(-2 * R); j <= ceil(2 * R); j++) {
+                        y = j / 2. + .5;
+                        if (x * x + y * y <= R * R) {
+                                vec[0] = x;
+                                vec[1] = y;
+                                vec[2] = sqrt(R * R - x * x - y * y);
+                                normalize(vec);
+                                b = pow(dot(light, vec), k) + ambient;
+                                intensity = (1 - b) * (sizeof(shades) - 1);
+                                if (intensity < 0) intensity = 0;
+                                if (intensity >= sizeof(shades) - 1)
+                                        intensity = sizeof(shades) - 2;
+                                putchar(shades[intensity]);
+                        } else
+                                putchar(' ');
+                }
+                putchar('\n');
+        }
+}
+
+
+int main()
+{
+        normalize(light);
+        draw_sphere(20, 4, .1);
+        draw_sphere(10, 2, .4);
+
+        return 0;
+}
+ian@ian-HP-Convertible-x360-11-ab1XX:~$ sloccount sphere.c
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/ian/sphere.c to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+50      top_dir         ansic=50
+
+
+Totals grouped by language (dominant language first):
+ansic:           50 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 50
+Development Effort Estimate, Person-Years (Person-Months) = 0.01 (0.10)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.09 (1.06)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.10
+Total Estimated Cost to Develop                           = $ 1,163
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+ian@ian-HP-Convertible-x360-11-ab1XX:~$ 
+
